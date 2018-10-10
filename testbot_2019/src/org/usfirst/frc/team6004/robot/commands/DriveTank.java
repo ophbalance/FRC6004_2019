@@ -25,7 +25,7 @@ public class DriveTank extends Command {
     		double leftSpeed = Robot.oi.driverController.getRawAxis(RobotMap.JOYSTICK_MOVE_LEFT_AXIS); 
     		double rightSpeed = Robot.oi.driverController.getRawAxis(RobotMap.JOYSTICK_MOVE_RIGHT_AXIS);
     		boolean twitch = true;
-    		Robot.drivetrain.tankDrive(leftSpeed, rightSpeed, twitch);
+    		Robot.drivetrain.tankDrive(leftSpeed, rightSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,7 +35,7 @@ public class DriveTank extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    		Robot.drivetrain.tankDrive(0, 0, true);
+    		Robot.drivetrain.tankDrive(0, 0);
     }
 
     // Called when another command which requires one or more of the same

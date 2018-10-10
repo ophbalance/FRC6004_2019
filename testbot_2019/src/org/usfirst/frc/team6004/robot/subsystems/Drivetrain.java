@@ -39,9 +39,9 @@ public class Drivetrain extends Subsystem {
 		robotDrive = new DifferentialDrive(m_left, m_right);
 	}
 	
-	public void tankDrive(double leftSpeed, double rightSpeed, boolean twitch) {
+	public void tankDrive(double leftSpeed, double rightSpeed) {
 		//robotDrive.arcadeDrive(moveSpeed, rotateSpeed);
-		robotDrive.tankDrive(leftSpeed, rightSpeed, twitch);
+		robotDrive.tankDrive(leftSpeed, rightSpeed);
 	}
 
     // Put methods for controlling this subsystem
