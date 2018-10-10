@@ -8,11 +8,17 @@
 package org.usfirst.frc.team6004.robot;
 
 
+import org.usfirst.frc.team6004.robot.OI;
 import org.usfirst.frc.team6004.robot.subsystems.Drivetrain;
+import org.usfirst.frc.team6004.robot.commands.ExampleCommand;
+import org.usfirst.frc.team6004.robot.subsystems.ExampleSubsystem;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,21 +31,25 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
+	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static Drivetrain drivetrain = null;
 	public static OI oi;
-	Joystick driverStick = new Joystick(0);
 	
-	Victor leftFrontDrive = new Victor(0);
-	Victor leftRearDrive = new Victor(1);
-	Victor rightFrontDrive = new Victor(2);
-	Victor rightRearDrive = new Victor(3);
+	Command autonomousCommand;	
+	SendableChooser<Command> chooser = new SendableChooser<>();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
+		drivetrain = new Drivetrain();
 		
+		oi = new OI(); // MUST ALWAYS BE THE LAST SUBSYSTEM
+		
+		chooser.addDefault("Default Auto", new ExampleCommand());
+		// chooser.addObject("My Auto", new MyAutoCommand());
+		SmartDashboard.putData("Auto mode", chooser);
 	}
 
 	/**
@@ -55,7 +65,18 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
+		autonomousCommand = chooser.getSelected();
+
+		/*
+		 * String autoSelected = SmartDashboard.getString("Auto Selector",
+		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
+		 * = new MyAutoCommand(); break; case "Default Auto": default:
+		 * autonomousCommand = new ExampleCommand(); break; }
+		 */
+
+		// schedule the autonomous command (example)
+		if (autonomousCommand != null)
+			autonomousCommand.start();
 	}
 
 	/**
@@ -63,7 +84,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		
+		Scheduler.getInstance().run();
 	}
 
 	/**
@@ -72,13 +93,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 			
-		double leftStickValue = driverStick.getRawAxis(1);		
-		double rightStickValue = driverStick.getRawAxis(5);
-		
-		leftFrontDrive.set(leftStickValue);
-		leftRearDrive.set(leftStickValue);
-		rightFrontDrive.set(rightStickValue);
-		rightRearDrive.set(rightStickValue);
+		// This makes sure that the autonomous stops running when
+		// teleop starts running. If you want the autonomous to
+		// continue until interrupted by another command, remove
+		// this line or comment it out.
+		if (autonomousCommand != null)
+			autonomousCommand.cancel();
 	}
 
 	/**
@@ -86,5 +106,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		LiveWindow.run();
 	}
 }
