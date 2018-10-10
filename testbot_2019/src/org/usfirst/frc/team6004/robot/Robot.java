@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team6004.robot;
 
+
+import org.usfirst.frc.team6004.robot.subsystems.Drivetrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Victor;
@@ -22,6 +25,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	
+	public static Drivetrain drivetrain = null;
+	public static OI oi;
 	Joystick driverStick = new Joystick(0);
 	
 	Victor leftFrontDrive = new Victor(0);
