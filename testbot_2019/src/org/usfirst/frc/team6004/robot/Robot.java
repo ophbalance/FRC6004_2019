@@ -96,8 +96,7 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control.
 	 */
 	@Override
-	public void teleopPeriodic() {
-			
+	public void teleopInit() {
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -106,6 +105,14 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 	}
 
+	/**
+	 * This function is called periodically during operator control
+	 */
+	@Override
+	public void teleopPeriodic() {
+		Scheduler.getInstance().run();
+	}
+	
 	/**
 	 * This function is called periodically during test mode.
 	 */

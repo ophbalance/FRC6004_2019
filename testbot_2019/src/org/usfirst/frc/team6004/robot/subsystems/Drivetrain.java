@@ -15,10 +15,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Drivetrain extends Subsystem {
 	
 	// Motor Controllers
-	Victor leftFrontDrive = new Victor(0);
-	Victor leftRearDrive = new Victor(1);
-	Victor rightFrontDrive = new Victor(2);
-	Victor rightRearDrive = new Victor(3);
+	Victor leftFrontDrive = null;
+	Victor leftRearDrive = null;
+	Victor rightFrontDrive = null;
+	Victor rightRearDrive = null;
 	
 	// Robot Drive
 	DifferentialDrive robotDrive = null;
@@ -41,7 +41,7 @@ public class Drivetrain extends Subsystem {
 	
 	public void tankDrive(double leftSpeed, double rightSpeed) {
 		//robotDrive.arcadeDrive(moveSpeed, rotateSpeed);
-		robotDrive.tankDrive(leftSpeed, rightSpeed);
+		robotDrive.tankDrive(leftSpeed, -rightSpeed);
 	}
 
     // Put methods for controlling this subsystem
@@ -51,4 +51,6 @@ public class Drivetrain extends Subsystem {
         // Set the default command for a subsystem here.
         setDefaultCommand(new DriveTank());
     }
+    
+   
 }
