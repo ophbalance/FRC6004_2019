@@ -1,41 +1,9 @@
 plugins {
-    id 'com.gradle.build-scan' version '1.9.1'
-    id 'com.gradle.plugin-publish' version '0.9.9'
-    id 'me.champeau.buildscan-recipes' version '0.2.0'
-    id 'java-gradle-plugin'
-    id 'idea'
-    id 'maven-publish'
-    id 'groovy'
+    id "java"
     id "edu.wpi.first.GradleRIO" version "2019.0.0-alpha-3"
 }
 
-repositories {
-    maven {
-        url "https://plugins.gradle.org/m2/"
-    }
-    mavenLocal()
-}
-
-def ROBOT_CLASS = "src.org.usfirst.frc.team6004.robot.Robot"
-def TEAM = 1
-
-dependencies {
-//    compile 'jaci.gradle:EmbeddedTools:2018.10.04'
-    compile 'gradle.plugin.jaci.gradle:EmbeddedTools:2018.10.16a'
-    compile 'de.undercouch:gradle-download-task:3.1.2'
-    compile 'com.google.code.gson:gson:2.2.4'
-    compile 'gradle.plugin.edu.wpi.first:gradle-cpp-vscode:0.5.0'
-
-    compile 'com.jcraft:jsch:0.1.53'
-
-    testCompile('org.spockframework:spock-core:1.1-groovy-2.4') {
-        exclude group: 'org.codehaus.groovy'
-    }
-    testCompile gradleTestKit()
-    compile wpilib()
-    compile ctre()
-    compile navx()
-}
+def ROBOT_CLASS = "frc.robot.Robot"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.
@@ -46,7 +14,7 @@ deploy {
             // or from command line. If not found an exception will be thrown.
             // You can use getTeamOrDefault(team) instead of getTeamNumber if you
             // want to store a team number in this file.
-            team = TEAM
+            team = getTeamNumber()
         }
     }
     artifacts {
@@ -58,6 +26,14 @@ deploy {
     }
 }
 
+// Defining my dependencies. In this case, WPILib (+ friends), CTRE Toolsuite (Talon SRX)
+// and NavX.
+dependencies {
+    compile wpilib()
+    compile ctre()
+    compile navx()
+}
+
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
 // knows where to look for our Robot Class.
@@ -66,59 +42,12 @@ jar {
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_CLASS)
 }
 
-buildScan {
-    licenseAgreementUrl = 'https://gradle.com/terms-of-service'
-    licenseAgree = 'yes'
+// Force Java 8 Compatibility mode for deployed code, in case the develoment
+// system is using Java 10.
+compileJava {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }
-
-buildScanRecipes {
-    recipes 'git-commit', 'git-status', 'travis-ci', 'disk-usage', 'gc-stats'
-}
-
-group = "edu.wpi.first"
-archivesBaseName = "GradleRIO"
-version = "2019.0.0-beta0-pre5"
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
-pluginBundle {
-    website = 'https://github.com/wpilibsuite/GradleRIO'
-    vcsUrl = 'https://github.com/wpilibsuite/GradleRIO'
-    description = 'Managing FRC projects, the Gradle way (2019+)'
-    tags = ['frc', 'wpilib', 'gradlerio']
-
-    plugins {
-        gradleRio {
-            id = "${project.group}.${project.archivesBaseName}"
-            displayName = 'GradleRIO'
-        }
-    }
-}
-
-publishing {
-    publications {
-        plugin(MavenPublication) {
-            artifact(jar) {
-                if (project.hasProperty('localPublish')) {
-                    classifier null
-                    groupId 'gradle.plugin.' + group
-                }
-            }
-        }
-    }
-}
-
-gradlePlugin {
-    plugins {
-        gradleRio {
-            id = 'edu.wpi.first.GradleRIO'
-            implementationClass = 'edu.wpi.first.gradlerio.GradleRIOPlugin'
-        }
-    }
-}
-
-//apply from: 'versionupdates.gradle'
 
 wrapper {
     gradleVersion = '4.9'

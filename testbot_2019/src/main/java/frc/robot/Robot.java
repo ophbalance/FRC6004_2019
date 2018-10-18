@@ -5,13 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package org.usfirst.frc.team6004.robot;
+package frc.robot;
 
 
-import org.usfirst.frc.team6004.robot.OI;
-import org.usfirst.frc.team6004.robot.subsystems.Drivetrain;
-import org.usfirst.frc.team6004.robot.commands.ExampleCommand;
-import org.usfirst.frc.team6004.robot.subsystems.ExampleSubsystem;
+import frc.robot.OI;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.ExampleSubsystem;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;

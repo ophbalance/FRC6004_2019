@@ -1,7 +1,7 @@
-package org.usfirst.frc.team6004.robot.subsystems;
+package frc.robot.subsystems;
 
-import org.usfirst.frc.team6004.robot.RobotMap;
-import org.usfirst.frc.team6004.robot.commands.DriveTank;
+import frc.robot.RobotMap;
+import frc.robot.commands.DriveTank;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
