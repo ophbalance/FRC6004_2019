@@ -44,12 +44,17 @@ public class Drivetrain extends Subsystem {
 		robotDrive.tankDrive(leftSpeed, -rightSpeed);
 	}
 
+	public void arcadeDrive(double leftSpeed, double rightSpeed) {
+		robotDrive.arcadeDrive(moveSpeed, rotateSpeed);
+	}
+
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new DriveTank());
+		//setDefaultCommand(new DriveTank());
+		setDefaultCommand(new ArcadeDrive());
     }
     
    
