@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import frc.robot.RobotMap;
 import frc.robot.commands.DriveTank;
+import frc.robot.commands.DriveArcade;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -45,7 +46,7 @@ public class Drivetrain extends Subsystem {
 	}
 
 	public void arcadeDrive(double leftSpeed, double rightSpeed) {
-		robotDrive.arcadeDrive(moveSpeed, rotateSpeed);
+		robotDrive.arcadeDrive(-leftSpeed, rightSpeed);
 	}
 
     // Put methods for controlling this subsystem
@@ -54,7 +55,7 @@ public class Drivetrain extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
 		//setDefaultCommand(new DriveTank());
-		setDefaultCommand(new ArcadeDrive());
+		setDefaultCommand(new DriveArcade());
     }
     
    
