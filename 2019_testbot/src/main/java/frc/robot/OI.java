@@ -26,7 +26,7 @@ public class OI {
 	Button D10 = new JoystickButton(driverController, 10);*/
 	
 	public OI(){
-		//D1.whenPressed(new ShooterUp());
+		D1.whenPressed(new DriveForward());
 	}
 	
 	//// CREATING BUTTONS
