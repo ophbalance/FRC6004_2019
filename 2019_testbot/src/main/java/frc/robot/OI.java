@@ -25,8 +25,10 @@ public class OI {
 	Button D9 = new JoystickButton(driverController, 9);
 	Button D10 = new JoystickButton(driverController, 10);*/
 	
-	public OI(){
-		D1.whenPressed(new DriveForward());
+	public OI()
+	{
+		D1.whileHeld(new DriveTurnRight());
+		D2.whileHeld(new DriveForward());
 	}
 	
 	//// CREATING BUTTONS

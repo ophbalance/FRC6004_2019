@@ -22,8 +22,8 @@ public class DriveArcade extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		double leftSpeed = deadband(Robot.oi.driverController.getRawAxis(RobotMap.JOYSTICK_MOVE_LEFT_AXIS),.1); 
-            double rightSpeed = deadband(Robot.oi.driverController.getRawAxis(RobotMap.JOYSTICK_ROTATE_RIGHT_AXIS),.1);
+    		double leftSpeed = Robot.oi.driverController.getRawAxis(RobotMap.JOYSTICK_MOVE_LEFT_AXIS); 
+            double rightSpeed = Robot.oi.driverController.getRawAxis(RobotMap.JOYSTICK_ROTATE_RIGHT_AXIS);
     		Robot.drivetrain.arcadeDrive(leftSpeed, rightSpeed);
     }
     

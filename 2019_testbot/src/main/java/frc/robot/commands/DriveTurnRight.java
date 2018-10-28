@@ -6,8 +6,8 @@ import frc.robot.Robot;
 /**
  *
  */
-public class DriveForward extends Command {
-	public DriveForward() {
+public class DriveTurnRight extends Command {
+	public DriveTurnRight() {
 		// Use requires() here to declare subsystem dependencies
 		requires(Robot.drivetrain);
 	}
@@ -20,8 +20,8 @@ public class DriveForward extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	@Override
 	protected void execute() {
-		double leftSpeed = -.65; 
-		double rightSpeed = 0;
+		double leftSpeed = 0; 
+		double rightSpeed = .5;
 		boolean twitch = true;
 		Robot.drivetrain.arcadeDrive(leftSpeed, rightSpeed);
 	}
